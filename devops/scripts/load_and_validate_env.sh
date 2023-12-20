@@ -2,7 +2,7 @@
 set -o errexit
 set -o pipefail
 set -o nounset
-# set -o xtrace
+set -o xtrace
 #
 # Usage:
 #    load_and_validate_env.sh
@@ -21,7 +21,9 @@ if [ ! -f "config.yaml" ]; then
 else
     # Validate no duplicate keys in config
     has_dupes=$(yq e '.. | select(. == "*") | {(path | .[-1]): .}| keys' config.yaml | sort| uniq -d)
-    if [ -n "${has_dupes:-}" ]; then
+    #has_dupes=$(yq e 'path(..) as $p | select(has($p)) | getpath($p) | select(tag == "!!str") | tostring' config.yaml | sort | uniq -d)
+
+    if [ -n "${has_dupes}" ]; then
       echo -e "\e[31m»»» 💥 There are duplicate keys in your config, please fix and try again!\e[0m"
       exit 1
     fi

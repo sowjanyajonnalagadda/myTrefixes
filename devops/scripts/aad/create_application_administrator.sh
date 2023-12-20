@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 # Use this for debug only
-# set -o xtrace
+set -o xtrace
 # AZURE_CORE_OUTPUT=jsonc # force CLI output to JSON for the script (user can still change default for interactive usage in the dev container)
 
 function show_usage()
